@@ -1,0 +1,43 @@
+#define BLYNK_TEMPLATE_ID "TMPL6e-Nry_Kp"
+#define BLYNK_TEMPLATE_NAME "LED on and off"
+//Include the library files
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <BlynkSimpleEsp32.h>
+#define BLYNK_AUTH_TOKEN "YmI8WwzIxPmO63flAC47Whrh3hCjJ6mK"
+
+
+#define pin 16
+#define BLYNK_PRINT Serial
+
+//Enter your wifi and password 
+char ssid[]= "NTU Network";
+char pass[] = "";
+
+
+
+void setup(){
+  pinMode(16, OUTPUT);
+
+
+Serial.begin(115200);
+Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass, "blynk.cloud", 80); 
+}
+
+BLYNK_WRITE(V1) // Executes when the value of virtual pin 0 changes
+{
+  if(param.asInt() == 1)
+  {
+    // execute this code if the switch widget is now ON
+    digitalWrite(pin, HIGH);  // Set digital pin 2 HIGH
+  }
+  else
+  {
+    // execute this code if the switch widget is now OFF
+    digitalWrite(pin, LOW);  // Set digital pin 2 LOW    
+  }
+}
+
+void loop() {
+   Blynk.run();
+   }
